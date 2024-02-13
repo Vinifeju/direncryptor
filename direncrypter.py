@@ -73,9 +73,11 @@ def main():
 	match encrypt_or_decrypt:
 		case '1':
 			key_dir = Path(input('[->] Куда сохранить ключ (Укажите папку): '))
+
 			if not key_dir.exists() or isfile(key_dir):
 				print('[X] Неверный путь')
 				return
+
 			key_dir = key_dir / Path(basename(base_dir) + '_key')
 			encrypter.generate_key_file(key_dir)
 			encrypter.encrypt_dir()
@@ -96,6 +98,7 @@ def main():
 			key_path.unlink()
 			encrypter.password = key
 			encrypter.decrypt_dir()
+			print(f'[V] Директория расшифрована {base_dir}')
 		case _:
 			print('[X] Неверный ввод')
 			return
